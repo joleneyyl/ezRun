@@ -3,7 +3,6 @@
 # This code is distributed under the terms of the GNU General
 # Public License Version 3, June 2007.
 # The terms are available here: http://www.gnu.org/licenses/gpl.html
-# www.fgcz.ch
 
 EzAppVisiumHDSeurat <-
   setRefClass(
