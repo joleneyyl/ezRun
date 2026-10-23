@@ -1,4 +1,8 @@
 # ezRun
+
+Personal fork of [uzh/ezRun](https://github.com/uzh/ezRun), an R package for sequencing-data analysis. The documentation below comes from the upstream project.
+
+For the main project and installation instructions, see [uzh/ezRun](https://github.com/uzh/ezRun). Changes on this fork can be reviewed in the [commit history](https://github.com/joleneyyl/ezRun/commits/master/).
 An R meta-package for the analysis of Next Generation Sequencing data.
 
 The version of `ezRun` package is bound to the release of Bioconductor development branch.
