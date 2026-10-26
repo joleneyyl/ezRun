@@ -1,35 +1,22 @@
-# Coding Style
+# Coding style
 
-## General Rules
+## Formatting
 
-Basic paradigms:
-
-* follow the tidyverse-style: https://style.tidyverse.org/
-* use the RStudio Addin to style code: https://github.com/r-lib/styler
-* only use ASCII characters in all files; never use Umlaut and other characters
-* in any file: All names and comments must be based on English
-* useful suggestions from Sarah Johnson: https://gist.github.com/sj-io/3828d64d0969f2a0f05297e59e6c15ad
-
-Formatting:
-* The tab spacing must be 2
+- Follow the [tidyverse style guide](https://style.tidyverse.org/). The [styler RStudio add-in](https://github.com/r-lib/styler) can format code.
+- Use two-space indentation.
+- Use ASCII characters and write names and comments in English.
+- See [Sarah Johnson’s suggestions](https://gist.github.com/sj-io/3828d64d0969f2a0f05297e59e6c15ad) for additional guidance.
 
 ## Naming
 
-* use camelCase for variable names
-* use underscore_separated for function names
-* recommended variable naming scheme:
-** counting variables: `nSamples`, `nReads`
-** use plural in vectors and matrices: `reads`
+Use `camelCase` for variables and `underscore_separated` names for functions. Prefix counts with `n`, such as `nSamples` and `nReads`. Use plural names for vectors and matrices, such as `reads`.
 
-## Conventions
+## R conventions
 
-* always use curly braces also for very simple `if` statements
-* use `library` instead of `require` since `library` gives an error while `require` gives only a warning if the package is missing
-* the use of row names as IDs for matrices and data.frames is encouraged
-* never access columns/rows by hard-coded indices, be aware that column or row ordering may change, use column or row names if possible
-* never user `for (i in 1:length(x))`, if the length of `x` is zero, this fails, always use `for (i in seq_along(x))`
-* For logging purposes, use `ezLog` whenever possible. Other functions which can be used to write to stdout and stderr, like `cat`, `print`, `ezWrite`, or `message`, should only be used when it is necessary to parse the logs after the fact.
-
-## Functions
-
-* Named functions should never rely on a variable of the parent environment. Only exception should be anonymous functions.
+- Use braces for every `if` statement, including short ones.
+- Use `library()` rather than `require()` so a missing package raises an error.
+- Row names may be used as IDs in matrices and data frames.
+- Use column and row names rather than fixed indices when their order could change.
+- Use `for (i in seq_along(x))` rather than `for (i in 1:length(x))`; the latter fails for an empty vector.
+- Use `ezLog` for logging where possible. Use `cat`, `print`, `ezWrite` or `message` when their output must be parsed later.
+- Named functions should not depend on variables in the parent environment. Anonymous functions are the exception recorded in the project’s conventions.
