@@ -1,40 +1,22 @@
-# The parameter secondRef
+# The `secondRef` parameter
 
-The parameter let's you specify additional reference sequences beyond the reference for a given species. These could be
+`secondRef` adds reference sequences to the species reference, for example transgenes, viral sequences or sequences from another species.
 
-* trans-genes
-* virus sequences
-* second species
+Provide a FASTA file that is readable at runtime. Suggested locations are:
 
-The parameter needs to point to a fasta file that is readable at runtime. Suggested locations are
+- `/srv/gstore/projects/p<current project>/<extraSequences or another informative name>`
+- `/srv/GT/databases/extra_references/<your informative folder name>`
 
-* `/srv/gstore/projects/p<current project>/<extraSequences or any other informative name>`
-* `/srv/GT/databases/extra_references/<your informative folder name>`
+The gstore location is preferred because it provides persistent storage.
 
-Preferred is the location on gstore because that provides persistent storage.
+## How the reference is interpreted
 
-The interpretation of the fasta file is as follows
+If `file.exists(sub(".fa", ".gtf", param$secondRef))` is true, the FASTA is treated as genomic DNA and the GTF supplies gene coordinates. Without a matching GTF, sequences are used directly; RNA workflows treat each sequence as a spliced transcript representing a separate gene.
 
-* If `file.exists(sub(".fa", ".gtf", param$secondRef))` then the assumption is that the fasta file contains DNA sequences (chromosomes or contigs) and the gtf file indicates the gene coordinates
-* If there is no gtf file, then the assumption is that these additional sequences are used as is and in RNA applications are considered as spliced transcripts. Each transcript representing a different gene
+## Tool behaviour
 
-## Behavior
-
-### STAR
-
-If there is a gtf a new temporary ref is built from the concatenation of the reference genome and the secondRef.
-
-If there is now gtf, STAR adds the sequences just ad-hoc in the alignment step. No new reference is built.
-
-In both cases the secondRef parameter also must be specified at subsequent `featureCounts`.
-
-
-### CellRanger
-
-Always a temporary ref is built.
-
-
-### Kallisto
-
-Not yet supported.
-
+| Tool | Behaviour |
+| --- | --- |
+| STAR | With a GTF, a temporary reference combines the species reference and `secondRef`. Without a GTF, STAR adds the sequences during alignment without building a new reference. Specify `secondRef` again when running `featureCounts`. |
+| CellRanger | A temporary reference is always built. |
+| Kallisto | Not yet supported in the recorded workflow. |
